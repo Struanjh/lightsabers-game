@@ -1,0 +1,378 @@
+
+
+:root {
+    --starWarsYellow: #FFE81F;
+    --starWarsBlack: #000000;
+  }
+
+.container {
+    width: 90vw;
+    height: 80vh;
+    align-items: center;
+    margin: 10vh 5vw;
+}
+
+
+.flex {
+    display: flex;
+}
+
+
+div.grid {
+    display: grid;
+    height: 100%;
+    width: 50%;
+    margin-right: 5%;
+    animation-name: fadeInRight;
+    animation-duration: 5s;
+}
+
+.container .grid div.square {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    position: relative;
+}
+
+.container .grid div.square img {
+    align-self: center;
+    justify-self: center;
+}
+
+.grid > .square:nth-child(odd) {
+    background: lightpink;
+}
+
+.grid > .square:nth-child(even) {
+    background: lightgreen;
+}
+
+.grid > .square:hover {
+    filter: brightness(110%);
+}
+
+.grid > .square p {
+    position: absolute;
+    color: white;
+    font-size: 0.8em;
+    font-weight: bold;
+    top: -10%;
+    left: 0%;
+}
+
+img.lightsaber {
+    position: absolute;
+    height: 200%;
+    width: 10%;
+    z-index: 1000;
+    top: 0%;
+}
+
+
+.lightsaber.leftTilt {
+    transform: rotate(45deg);
+    right: 100%;
+}
+
+.lightsaber.rightTilt {
+    transform: rotate(315deg);
+    left: 100%;
+}
+
+
+/*---------------Intro Settings Section-----------------------*/
+
+body {
+    background: url('./Images/Backgrounds/407468.jpg') fixed;
+}
+
+#introContainer {
+    height: 100vh;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content:space-evenly;
+    align-items: center;
+    animation-name: fadeInRight;
+    animation-duration: 3s;
+}
+
+#introContainer img {
+    width: 100%;
+    color: white;
+}
+
+#optionsContainer {
+    display: flex;
+    height: 20%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#optionsContainer * {
+    height: 20%;
+    width: 40%;
+    text-align: center;
+}
+
+#difficultyLevels {
+    background-color: var(--starWarsYellow);
+    color: var(--starWarsBlack);
+    
+}
+
+#optionsContainer label {
+    color: white;
+    font-weight: bold;
+}
+
+#difficulty-selection-submit {
+    background-color: var(--starWarsBlack);
+    color: var(--starWarsYellow);
+}
+
+#difficulty-selection-submit:hover {
+    filter: brightness(150%);
+    cursor: pointer;
+}
+
+@keyframes fadeInRight {
+    0% {
+       opacity: 0;
+       transform: translateX(-1000px);
+    }
+    100% {
+       opacity: 1;
+       transform: translateX(0);
+    }
+ } 
+
+ @keyframes fadeInLeft {
+    0% {
+       opacity: 0;
+       transform: translateX(+1000px);
+    }
+    100% {
+       opacity: 1;
+       transform: translateX(0);
+    }
+ } 
+
+ @keyframes fadeInBackground {
+    0% {
+        filter: blur(0px);
+    }
+    20% {
+        filter: blur(9px);
+    }
+    40% {
+        filter: blur(8px);
+    }
+    60% {
+        filter: blur(7px);
+    }
+    80% {
+        filter: blur(6px);
+    }
+    100% {
+        filter: blur(5px);
+    }
+ }
+
+/*---------------Player Settings Section-----------------------*/
+
+#char-selection-label {
+    display: block;
+    text-align: center;
+}
+
+section.flex,section.player-settings {
+    margin-left: 5%;
+    width: 40%;
+    flex-direction: column;
+    height: 100%;
+    animation-name: fadeInLeft;
+    animation-duration: 5s;
+}
+
+.section.flex,section.player-settings > div {
+    height: 30%;
+    border: solid 10px var(--starWarsBlack);
+    background-color: white;
+    margin: 0px;
+}
+
+/*--Select Players Section--*/
+
+.player-settings .players .select-player {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    height: 100%;
+}
+
+.player-settings .players .char-img-container {
+    width: 50%;
+    height: 100%;
+    align-items: center;
+}
+
+ #character-image {
+    padding-top: 15px;
+    display: block;
+    margin: 0px auto;
+    height: 75%;
+    width: 60%;
+} 
+
+.buttons-container {
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 40%;
+}
+
+.buttons-container button {
+    width: 40%;
+    height: 100%;
+}
+
+/*--Selected Players Section--*/
+
+.selected-players {
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0px;
+}
+
+#selected-players-container {
+    width: 70%;
+    height: 100%;
+    margin: 0px;
+}
+
+#selected-players-container div {
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+.selected-players div h3 {
+    font-size: 0.75em;
+    text-align: center;
+}
+
+.selected-players div p {
+    font-size: 0.75em;
+    height: 10%;
+    text-align: center;
+}
+
+/*Class dynamically added / removed using JS to emphasize message*/
+.selected-players div p.message-focus {
+    color: white;
+    font-size: 0.6em;
+    font-weight: bolder;
+}
+
+.selected-players div img {
+    display: block;
+    margin: 0px auto;
+    height: 50%;
+    width: 50%;
+}
+
+
+#game-control-buttons-container {
+    width: 20%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#game-control-buttons-container button {
+    height: 50px;
+}
+
+.player-animation-red {
+    animation: player-animation-red 2s infinite;
+}
+
+.player-animation-blue {
+    animation: player-animation-blue 2s infinite;
+}
+
+.player-animation-green {
+    animation: player-animation-green 2s infinite;
+}
+
+@keyframes player-animation-red {
+    0%		{ background-color: red;}
+    50%		{ background-color: white;}
+    100%	{ background-color: red;}
+  }
+
+  @keyframes player-animation-blue {
+    0%		{ background-color: blue;}
+    50%		{ background-color: white;}
+    100%	{ background-color: blue;}
+  }
+
+  @keyframes player-animation-green {
+    0%		{ background-color: green;}
+    50%		{ background-color: white;}
+    100%	{ background-color: green;}
+  }
+
+
+/*--Dice Section--*/
+
+div.dice {
+    justify-content: space-around;
+    align-items: center;
+}
+   
+.section.flex,section.player-settings div .dice-container {
+    height: 100%;
+    width: 30%;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.section.flex,section.player-settings div .dice-container img {
+    height: 50%;
+    width: 70%;
+}
+
+.section.flex,section.player-settings div button {
+    height: 50%;
+}
+
+
+.dice-animation{
+    animation: dice-animation 2s infinite linear;
+}
+
+@keyframes dice-animation {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(359deg);
+    }
+  }
+
+
+
+

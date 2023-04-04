@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Snakes and Ladders</title>
+    <script defer src="./scripts/index.js"></script>
+</head>
+<body>
+    <div id="board-container" class="container flex">
+        <section class="flex player-settings">
+            <div class="players flex">
+                <div class="select-player flex">
+                    <label for="characters" id="char-selection-label">Choose between 2 & 4 characters..</label>
+                    <select id="characters" name="characters">
+                        <option value="choice">--Select a value---</option>
+                        <option value="stormtrooper">Stormtrooper</option>
+                        <option value="boba-fett">Boba Fett</option>
+                        <option value="chewbacca">Chewbacca</option>
+                        <option value="clone-trooper">Clonetrooper</option>
+                        <option value="darth-maul">Darth Maul</option>
+                        <option value="darth-vader">Darth Vader</option>
+                        <option value="emperor-palpatine">Emperor Palpatine</option>
+                        <option value="ewok">Ewok</option>
+                        <option value="greedo">Greedo</option>
+                        <option value="han-solo">Han Solo</option>
+                        <option value="jabba-the-hutt">Jabba The Hutt</option>
+                        <option value="jango-fett">Jango Fett</option>
+                        <option value="lando-calrissian">Lando Calrissian</option>
+                        <option value="lobot">Lobot</option>
+                        <option value="luke-skywalker">Luke Skywalker</option>
+                        <option value="obiwan-kenobi">Obiwan Kenobi</option>
+                        <option value="princess-leila">Princes Leila</option>
+                        <option value="qui-gon-jinn">Qui Gon Jinn</option>
+                        <option value="red-five">Red Five</option>
+                        <option value="jawa">Jawa</option>
+                        <option value="yoda">Yoda</option>
+                        <option value="ackbar">Admiral Ackbar</option>
+                        <option value="computer">R2D2 (computer)</option>
+                    </select>
+                    <div class="buttons-container flex">
+                        <button id="char-selection-submit">Choose</button>
+                        <button id="clear-selection-submit">Clear Selection</button>
+                    </div>
+                </div>
+                <div class="char-img-container">
+                    <img id="character-image" src="./Images/Star-Wars-Characters/choice.png" alt="Character">
+                </div>
+            </div>
+            <div class="selected-players flex">
+                <div id="selected-players-container" class="flex"></div>
+                <div id="game-control-buttons-container" class="flex">
+                    <button id="start-game">Start The Game</button>
+                    <button id="reset-game">Reset The Game</button>
+                </div>
+            </div> 
+            <div class="dice flex">
+                <div class="dice-container flex">
+                    <img class="dice dice-spin" src="./Images/Dice/dice.png" alt="Image of a dice">
+                    <p id="dice-message"></p>
+                </div>    
+                <button id="roll-dice">Roll The Dice!</button>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
