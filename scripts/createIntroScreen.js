@@ -1,0 +1,41 @@
+
+export const createIntroSection = () => {
+    allContainer.style.display = 'none';
+    introContainer.setAttribute('id', 'introContainer');
+    let titleImg = document.createElement('img');
+    titleImg.setAttribute('src', './Images/starwarstitletext.png');
+    titleImg.setAttribute('alt', 'Title text');
+    let optionsContainer = document.createElement('div');
+    optionsContainer.setAttribute('id', 'optionsContainer');
+    let optionsLabel = document.createElement('label');
+    optionsLabel.setAttribute('for', 'difficultyLevels');
+    optionsLabel.textContent = 'Select a difficulty level...';
+    optionList.setAttribute('id', 'difficultyLevels');
+    optionList.setAttribute('name', 'difficultyLevels');
+    let low = document.createElement("option");
+    low.value = 'low';
+    low.text = 'Low';
+    let medium = document.createElement("option");
+    medium.value = 'medium';
+    medium.text = 'Medium';
+    let high = document.createElement("option");
+    high.value = 'high';
+    high.text = 'High';
+    optionList.add(high);
+    optionList.add(medium);
+    optionList.add(low);
+    difficultyBtn.setAttribute('id', 'difficulty-selection-submit');
+    difficultyBtn.textContent = 'Submit';
+    optionsContainer.appendChild(optionsLabel);
+    optionsContainer.appendChild(optionList);
+    optionsContainer.appendChild(difficultyBtn);
+    introContainer.appendChild(titleImg);
+    introContainer.appendChild(optionsContainer);
+    document.querySelector('body').appendChild(introContainer);
+    charSubmitButton.disabled = true;
+    rollDiceButton.disabled = true;
+    gameControlButtons.style.visibility = 'hidden';
+    resetGameButton.style.display = 'none';
+    diceContainer.style.display = 'none';
+    document.querySelector('.section.flex,section.player-settings').style.justifyContent = 'space-around';
+}
