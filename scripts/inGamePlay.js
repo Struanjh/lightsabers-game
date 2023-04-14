@@ -1,5 +1,5 @@
 
-export { movePlayerOnBoard, setPlayerMsg, displayUserMsg, setNextActivePlayer, getCurrentActivePlayer, spinTheDice, displayRolledNum, landedOnSaber, moveToNextPlayer, controlTheGame, clearGame, startGame, resetGame };
+export { movePlayerOnBoard, setPlayerMsg, displayUserMsg, setNextActivePlayer, getCurrentActivePlayer, spinTheDice, displayRolledNum, landedOnSaber, moveToNextPlayer, controlTheGame, clearGame, startGame, resetGame};
 
 //------------------Roll Dice Functionality-------------------------------//
 
@@ -8,7 +8,6 @@ const movePlayerOnBoard = (index, currentPos) => {
     let newPos = document.querySelector(`[index="${index}"]`);
     currentPos.removeChild(activePlayerInstances[0]);
     newPos.appendChild(activePlayerInstances[0]);
-    console.log('NEWWWW POS!', newPos);
     return newPos;
 }
 
@@ -17,10 +16,8 @@ const setPlayerMsg = (num) => {
    let currentPos = activePlayerInstances[0].parentElement;
    let index = parseInt(currentPos.getAttribute('index'));
    index += num;
-   console.log('INDEX', index);
    //If current index = a saber position, the object for the saber is returned, otherwise undefined
    let saberMove = sabersArr.find(saberMove => saberMove.startPos === index);
-   console.log(saberMove);
    //If the number moves the player off the board then return the message and don't move player
    if (index > totalGridSquares) {
        index -= num;
@@ -32,7 +29,6 @@ const setPlayerMsg = (num) => {
        return {msg: msg};
    } //Check if the player landed on a lightsaber move position
    else if (saberMove) {
-       console.log(activePlayerInstances[0]);
        switch (saberMove['color']) {
            case 'red':
                msg = [[`Oh No! You landed on a red lightsaber 😂😂!`],[`Move back ${String(saberMove['movePos']).slice(1)} spaces!`]];
@@ -49,7 +45,6 @@ const setPlayerMsg = (num) => {
        msg = 'Your Turn!! 👍 👍';
    }
    currentPos = activePlayerInstances[0].parentElement;
-   console.log('CURRENT POS AFTER INDEX CHANGED', currentPos, 'INDEX', index);
    let newPos = movePlayerOnBoard(index, currentPos)
    return {msg: msg, saber: saberMove, index: index, pos: newPos};
 }
@@ -104,11 +99,9 @@ const displayRolledNum = (num) => {
    diceMessage.textContent = `You rolled a ${num}`;
    diceImage.classList.remove('dice-animation');
    getCurrentActivePlayer();
-   console.log('FIRST! DISPLAY ROLLED NUMBER AFTER 2 SECS');
 }
 
 const landedOnSaber = (msg) => {
-   console.log('OLD POS', msg.index, msg.saber, msg.pos);
    //Do an animation based on the color of saber
    let saberColor = msg.saber['color'];
    //Change the index number to get players new position....
@@ -136,7 +129,6 @@ const clearGame = () => {
         playerSelection[i].disabled = false;
     }
     let players = document.querySelectorAll('[player]');
-    console.log(players);
     for (let i = 0; i < players.length; i++) {
         players[i].parentNode.removeChild(players[i]);
     }
@@ -172,66 +164,55 @@ const resetGame = () => {
     clearGame();
 }
 
+const wait = (secs) => {
+    return new Promise((resolve) => {
+        setTimeout(
+            resolve,
+            secs * 1000
+        );
+    });
+}
 
 const controlTheGame = () => {
-   let num = spinTheDice();
-   //Wait until dice rolled before displaying number
-   setTimeout (
-       () => {
-           displayRolledNum(num);
-           //Wait until number has displayed before physically moving player
-           setTimeout(
-               () => {
-                   let msg = setPlayerMsg(num);
-                   if (msg.saber) {
-                       //Repeat this block of code so long as the user continues to land on sabers....
-                       // while (msg.saber) {
-                           //If the user landed on a saber.. perform 2 additional actions.......
-                           setTimeout(
-                               () => {
-                                   //Pause to alert the user that they landed on a lightsaber & pass extra arg containing color for animation class
-                                   activePlayerInstances[1].lastElementChild.classList.add('message-focus');
-                                   displayUserMsg(msg.msg[0], msg.saber['color']);
-                                   //Pause to tell the user how many spaces they move up or down....
-                                   setTimeout(
-                                       () => {
-                                           displayUserMsg(msg.msg[1]);
-                                           //Pause before moving player to new saber position
-                                           setTimeout(
-                                               () => {
-                                                   landedOnSaber(msg);
-                                                   //Pause before Moving to the next player
-                                                   setTimeout(
-                                                       () => {
-                                                           activePlayerInstances[1].lastElementChild.classList.remove('message-focus');
-                                                           activePlayerInstances[1].classList.remove(`player-animation-${msg.saber['color']}`);
-                                                           //Call setplayer msg again to test if another saber was landed on
-                                                           //0 passed as argument since dice hasn't been rolled again
-                                                           // msg = setPlayerMsg(0);
-                                                           moveToNextPlayer(msg.saber['color']);
-                                                       }, 2000
-                                                   );
-                                               }, 2000
-                                           );
-                                       }, 2000
-                                   );
-                               }, 2000
-                           );
-                       // }
-                   } else {
-                       setTimeout(
-                           () => {
-                               displayUserMsg(msg.msg);
-                               setTimeout(
-                                   () => {
-                                       moveToNextPlayer();
-                                   }, 2000
-                               );
-                           }, 1000
-                       );
-                   } 
-               }, 2000
-           );
-       }, 2000
-   );
+    let num = spinTheDice();
+    wait(2)
+    .then(() => {
+        displayRolledNum(num);
+        return wait(2);
+    }) 
+    .then(()=> {
+        let msg = setPlayerMsg(num);
+        if (msg.saber) {
+            wait(2)
+            .then(() => {
+                  //Pause to alert the user that they landed on a lightsaber & pass extra arg containing color for animation class
+                  activePlayerInstances[1].lastElementChild.classList.add('message-focus');
+                  displayUserMsg(msg.msg[0], msg.saber['color']);
+                  return wait(2)
+                  .then(() => {
+                    //Tell the user how many spaces they move up or down
+                    displayUserMsg(msg.msg[1]);
+                    return wait(2)
+                  })
+                  .then(() => {
+                    landedOnSaber(msg);
+                    return wait(2)
+                  })
+                  .then(() => {
+                    activePlayerInstances[1].lastElementChild.classList.remove('message-focus');
+                    activePlayerInstances[1].classList.remove(`player-animation-${msg.saber['color']}`);
+                    moveToNextPlayer(msg.saber['color']);
+                  })
+            })
+        } else {
+            wait(1)
+            .then(() => {
+                displayUserMsg(msg.msg);
+                return wait(2)
+            })
+            .then(() => {
+                moveToNextPlayer();
+            })
+        }
+    })
 }

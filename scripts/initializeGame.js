@@ -96,7 +96,6 @@ export let gameParams = {
             }
              //shuffle the colors so they're assigned randomly
              colors.sort(() => Math.random() - 0.5);
-             console.log(colors);
             return colors;
     },
     moveCharOddRow: () => {
